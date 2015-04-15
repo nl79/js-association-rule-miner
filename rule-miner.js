@@ -21,14 +21,46 @@ function create (args) {
         //set the word map data.
         this.data = args.data;
 
+        //count of the words in the data collection
+        this.count = 0;
+
+        //array of data object keys for quick traversal
+        this.keys = [];
+
+
+        this.process = function() {
+
+            //get the data object keys.
+            this.keys = Object.keys(this.data);
+            //set the data object key count
+            this.count = this.keys.length;
+
+            //build the initial array based on association.
+            for(var i = 0; i < this.keys.length; i++) {
+
+            }
+
+
+        }
+
+        this.getSupport = function(args) {
+
+        }
+
+        this.getConfidence = function (args) {
+
+        }
+
 
     }
+
+
 
     /*
      *inherit the event mitter in order to
      *provite for events.
      */
-    util.inherits(Indexer, emitter);
+    util.inherits(miner, emitter);
 
     return new miner(args);
 
