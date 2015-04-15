@@ -27,6 +27,9 @@ function create (args) {
         //array of data object keys for quick traversal
         this.keys = [];
 
+        //output collection
+        this.collection =
+
 
         this.process = function() {
 
@@ -37,6 +40,8 @@ function create (args) {
 
             //build the initial array based on association.
             for(var i = 0; i < this.keys.length; i++) {
+                console.log(this.keys[i] + " ");
+                console.log(this.data[this.keys[i]]);
 
             }
 
@@ -53,7 +58,6 @@ function create (args) {
 
 
     }
-
 
 
     /*
