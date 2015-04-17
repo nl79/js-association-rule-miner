@@ -61,6 +61,9 @@ function create (args) {
 
             fs.writeFileSync("./l3.json", JSON.stringify(this.l3, null, 4));
 
+            this.buildRules();
+
+
 
 
         }
@@ -139,9 +142,7 @@ function create (args) {
                     }
                 }
             }
-
         }
-
 
         this.buildL3 = function() {
 
@@ -175,61 +176,114 @@ function create (args) {
             //third order merger.
             for(var i = 0; i < p2.pair.length; i++) {
 
-                if(p1.pair.indexOf(p2.pair[i]) != -1) {
+                if(p1.pair.indexOf(p2.pair[i]) >= 0) {
+
+                    //remove the element from the pair array.
+                    p2.pair.splice(i,1);
+
                     valid = true;
+
                 }
 
             }
 
-            //if a set of 3 terms cannot be generated, return with out further processing.
-            if(!valid) { return; }
+            //validate that the length of the first pair is 2
+            //and the second is 1.
+
+            if(!(p1.pair.length == 2 && p2.pair.length == 1)) {
+
+                return;
+
+            }
+
+            var count = 0;
+            var docs = [];
+
+            for(var i = 0; i < p1.docs.length; i++) {
+
+                if(p2.docs.indexOf(p1.docs[i]) != -1) {
+                    count++;
+                    docs.push(p1.docs[i]);
+
+                }
+            }
+
+            if(count >= this.supportCount) {
+
+                var terms = [];
+
+                terms = terms.concat(p1.pair);
+                terms = terms.concat(p2.pair);
+
+                this.l3.push({terms: terms,
+                                docs: docs});
+
+                console.log(terms);
+
+            }
+
+            return;
+        }
+
+        this.buildRules = function() {
+
+            //calculate the support and confidence for all of the pairs.
+            for(var i = 0; i<this.l3.length; i++){
+
+                var terms = this.l3[i].terms;
+
+                //calculate the support value.
+                var support = this.l3[i].docs.length / this.count;
+                var confidence = [];
+
+                for(var j = 0; j< terms.length; j++) {
 
 
-            //loop over the terms in each pair and extract the none matching one.
-            for(var i = 0; i < p2.pair.length; i++) {
+                    var x = [];
+                    var y = [];
+                    var temp = null;
+                    var index = j;
 
+                    //turn 1 assignments
+                    //x will hold the value of the valied at J.
+                    //y will hold the values at 2 position later. If the position is at the end
+                    //of the array, it will over flow to the start.
+                    x.push(terms[j]);
 
-                //check if the first containes the same term
-                //if not, compare the document ids to make sure
-                //all three terms co-occur.
-                if(p1.pair.indexOf(p2.pair[i]) == -1) {
+                    for(var k = 0; k < 2; k++) {
 
-                    //count the number of matching documents in all three terms.
-                    var count = 0;
-                    var docs = [];
-
-                    //loop over the document id array and count the number of
-                    //documents that contain the terms from the first pair and the
-                    //term from the second pair.
-                    for(var j = 0; j < p1.docs.length; j++) {
-
-
-                        if(p2.docs.indexOf(p1.docs[j]) != -1) {
-                            //increment the count
-                            count ++;
-
-                            //save the document id
-                            docs.push(p1.docs[j]);
-
-
-                            if(count >= this.supportCount) {
-                                //if the count is greater then or equal to the
-                                //minimum support count, merge the term into the pair.
-
-                                //build a set object.
-                                var terms = [p2.pair[i]].concat(p1.pair);
-
-                                this.l3.push({terms: terms,
-                                            docs: docs});
-
-                                console.log(terms);
-
-                            }
+                        if((index + 1) < terms.length) {
+                            index++;
+                        } else {
+                            index = 0;
                         }
+
+                        y.push(terms[index]);
                     }
+
+                    //calculate the confidence values.
+                    //passing the x terms
+                    confidence.push(this.getConfidence(support, x));
+
+                    //passing the y terms. has the same affect as reversing association
+                    //test from x -> y, then y -> x with the the new value of x being the previous
+                    //value of y.
+                    confidence.push(this.getConfidence(support, y));
+
+
+
+
+
                 }
+
             }
 
+        }
+
+        this.getConfidence = function(support, x) {
+            console.log('support:' + support + " | x:" + x);
+
+            return 'test';
         }
     }
 
