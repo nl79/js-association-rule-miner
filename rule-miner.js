@@ -30,13 +30,14 @@ function create (args) {
         //support count
         this.supportCount = 0;
 
-        //cleaned collection
+        //first order list.
         this.l1 = [];
 
         //second order list
         this.l2 = [];
 
-
+        //third order list;
+        this.l3 = [];
 
 
         this.process = function() {
@@ -53,7 +54,13 @@ function create (args) {
             //build the first set of pairs.
             this.buildL2();
 
-            console.log(this.l2.length);
+            fs.writeFileSync("./l2.json", JSON.stringify(this.l2, null, 4));
+
+            //build the third order list.
+            this.buildL3();
+
+            fs.writeFileSync("./l3.json", JSON.stringify(this.l3, null, 4));
+
 
 
         }
@@ -76,7 +83,8 @@ function create (args) {
                     if(keys.length >= this.supportCount) {
 
                         this.l1.push({term: this.keys[i],
-                            docs: keys});
+                            docs: keys,
+                            support: keys.length});
                     }
 
                 }
@@ -88,6 +96,7 @@ function create (args) {
 
             //co-ocurence count for each pair.
             var support = 0;
+            var docs = [];
 
             //check each term against each other term to determine if they co-occur
             //inside a document.
@@ -99,7 +108,10 @@ function create (args) {
 
                     //reset the support count
                     support = 0;
-                    
+                    docs = [];
+
+
+
                     //loop over the docs array and compare each value to see
                     //if the two terms occur in the same document.
                     for (var k=0; k< termOne.docs.length; k++) {
@@ -109,22 +121,20 @@ function create (args) {
                             //increment the co-ocurence count
                             support ++;
 
+                            //store the doc number.
+                            docs.push(termOne.docs[k]);
 
-                            console.log(support);
+                            //if the current position is the last position in the array.
+                            //compare the support count. If greater then the accepted
+                            //support value, store the term pair and the suppor value.
+                            if(k == termOne.docs.length -1 && support >= this.supportCount) {
 
-                            //if the support is greater then or equal to the required
-                            //support count, store the pair.
-                            if(support >= this.supportCount) {
-
-                                //a match was found. Create a pair and store it
-                                //in the second order list.
-                                this.l2.push([termOne, termTwo]);
-
-                                console.log(termOne.term + ' , ' + termTwo.term);
+                                this.l2.push({pair: [termOne.term, termTwo.term],
+                                    docs:docs,
+                                    support: support});
 
                                 break;
                             }
-
                         }
                     }
                 }
@@ -133,7 +143,97 @@ function create (args) {
         }
 
 
+        this.buildL3 = function() {
+
+            //build triplets out of the l2 array by comparing the pairs.
+            //if two pairs have a same term, remove the duplicate and create
+            //a triplet.
+            for(var i = 0; i<this.l2.length; i++) {
+
+                //save the pair.
+                var pairOne = this.l2[i];
+
+                for(var j = i+1; j< this.l2.length; j++) {
+
+                    //save the pair.
+                    var pairTwo = this.l2[j];
+
+                    //merge the pairs.
+                    this.merge(pairOne, pairTwo);
+
+
+                }
+            }
+        }
+
+        this.merge = function(p1, p2) {
+
+            var valid = false;
+
+            //compare the terms to make sure only a pair of 3 can be generated.
+            //at least 1 term has to be in both sets to be valid for a
+            //third order merger.
+            for(var i = 0; i < p2.pair.length; i++) {
+
+                if(p1.pair.indexOf(p2.pair[i]) != -1) {
+                    valid = true;
+                }
+
+            }
+
+            //if a set of 3 terms cannot be generated, return with out further processing.
+            if(!valid) { return; }
+
+
+            //loop over the terms in each pair and extract the none matching one.
+            for(var i = 0; i < p2.pair.length; i++) {
+
+
+                //check if the first containes the same term
+                //if not, compare the document ids to make sure
+                //all three terms co-occur.
+                if(p1.pair.indexOf(p2.pair[i]) == -1) {
+
+                    //count the number of matching documents in all three terms.
+                    var count = 0;
+                    var docs = [];
+
+                    //loop over the document id array and count the number of
+                    //documents that contain the terms from the first pair and the
+                    //term from the second pair.
+                    for(var j = 0; j < p1.docs.length; j++) {
+
+
+                        if(p2.docs.indexOf(p1.docs[j]) != -1) {
+                            //increment the count
+                            count ++;
+
+                            //save the document id
+                            docs.push(p1.docs[j]);
+
+
+                            if(count >= this.supportCount) {
+                                //if the count is greater then or equal to the
+                                //minimum support count, merge the term into the pair.
+
+                                //build a set object.
+                                var terms = [p2.pair[i]].concat(p1.pair);
+
+                                this.l3.push({terms: terms,
+                                            docs: docs});
+
+                                console.log(terms);
+
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
     }
+
+
 
 
     /*
