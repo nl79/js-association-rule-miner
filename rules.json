@@ -1,0 +1,486 @@
+[
+    {
+        "x": [
+            "time"
+        ],
+        "y": [
+            "undefined",
+            "text"
+        ],
+        "support": 0.504,
+        "confidence": 0.9333333333333333
+    },
+    {
+        "x": [
+            "undefined"
+        ],
+        "y": [
+            "text",
+            "time"
+        ],
+        "support": 0.504,
+        "confidence": 0.5846867749419954
+    },
+    {
+        "x": [
+            "text"
+        ],
+        "y": [
+            "time",
+            "undefined"
+        ],
+        "support": 0.504,
+        "confidence": 0.631578947368421
+    },
+    {
+        "x": [
+            "time",
+            "undefined"
+        ],
+        "y": [
+            "text"
+        ],
+        "support": 0.504,
+        "confidence": 0.9438202247191011
+    },
+    {
+        "x": [
+            "time"
+        ],
+        "y": [
+            "undefined",
+            "function"
+        ],
+        "support": 0.508,
+        "confidence": 0.9407407407407408
+    },
+    {
+        "x": [
+            "undefined"
+        ],
+        "y": [
+            "function",
+            "time"
+        ],
+        "support": 0.508,
+        "confidence": 0.5893271461716937
+    },
+    {
+        "x": [
+            "function"
+        ],
+        "y": [
+            "time",
+            "undefined"
+        ],
+        "support": 0.508,
+        "confidence": 0.6091127098321343
+    },
+    {
+        "x": [
+            "time",
+            "undefined"
+        ],
+        "y": [
+            "function"
+        ],
+        "support": 0.508,
+        "confidence": 0.951310861423221
+    },
+    {
+        "x": [
+            "time"
+        ],
+        "y": [
+            "undefined",
+            "for"
+        ],
+        "support": 0.52,
+        "confidence": 0.9629629629629629
+    },
+    {
+        "x": [
+            "undefined"
+        ],
+        "y": [
+            "for",
+            "time"
+        ],
+        "support": 0.52,
+        "confidence": 0.6032482598607889
+    },
+    {
+        "x": [
+            "for"
+        ],
+        "y": [
+            "time",
+            "undefined"
+        ],
+        "support": 0.52,
+        "confidence": 0.7471264367816092
+    },
+    {
+        "x": [
+            "time",
+            "undefined"
+        ],
+        "y": [
+            "for"
+        ],
+        "support": 0.52,
+        "confidence": 0.9737827715355806
+    },
+    {
+        "x": [
+            "time"
+        ],
+        "y": [
+            "undefined",
+            "this"
+        ],
+        "support": 0.522,
+        "confidence": 0.9666666666666667
+    },
+    {
+        "x": [
+            "undefined"
+        ],
+        "y": [
+            "this",
+            "time"
+        ],
+        "support": 0.522,
+        "confidence": 0.605568445475638
+    },
+    {
+        "x": [
+            "this"
+        ],
+        "y": [
+            "time",
+            "undefined"
+        ],
+        "support": 0.522,
+        "confidence": 0.75
+    },
+    {
+        "x": [
+            "time",
+            "undefined"
+        ],
+        "y": [
+            "this"
+        ],
+        "support": 0.522,
+        "confidence": 0.9775280898876404
+    },
+    {
+        "x": [
+            "time"
+        ],
+        "y": [
+            "undefined",
+            "text"
+        ],
+        "support": 0.504,
+        "confidence": 0.9333333333333333
+    },
+    {
+        "x": [
+            "undefined"
+        ],
+        "y": [
+            "text",
+            "time"
+        ],
+        "support": 0.504,
+        "confidence": 0.5846867749419954
+    },
+    {
+        "x": [
+            "text"
+        ],
+        "y": [
+            "time",
+            "undefined"
+        ],
+        "support": 0.504,
+        "confidence": 0.631578947368421
+    },
+    {
+        "x": [
+            "time",
+            "undefined"
+        ],
+        "y": [
+            "text"
+        ],
+        "support": 0.504,
+        "confidence": 0.9438202247191011
+    },
+    {
+        "x": [
+            "time"
+        ],
+        "y": [
+            "undefined",
+            "from"
+        ],
+        "support": 0.524,
+        "confidence": 0.9703703703703703
+    },
+    {
+        "x": [
+            "undefined"
+        ],
+        "y": [
+            "from",
+            "time"
+        ],
+        "support": 0.524,
+        "confidence": 0.6078886310904872
+    },
+    {
+        "x": [
+            "from"
+        ],
+        "y": [
+            "time",
+            "undefined"
+        ],
+        "support": 0.524,
+        "confidence": 0.7178082191780822
+    },
+    {
+        "x": [
+            "time",
+            "undefined"
+        ],
+        "y": [
+            "from"
+        ],
+        "support": 0.524,
+        "confidence": 0.9812734082397003
+    },
+    {
+        "x": [
+            "time"
+        ],
+        "y": [
+            "undefined",
+            "all"
+        ],
+        "support": 0.51,
+        "confidence": 0.9444444444444444
+    },
+    {
+        "x": [
+            "undefined"
+        ],
+        "y": [
+            "all",
+            "time"
+        ],
+        "support": 0.51,
+        "confidence": 0.5916473317865429
+    },
+    {
+        "x": [
+            "all"
+        ],
+        "y": [
+            "time",
+            "undefined"
+        ],
+        "support": 0.51,
+        "confidence": 0.8225806451612904
+    },
+    {
+        "x": [
+            "time",
+            "undefined"
+        ],
+        "y": [
+            "all"
+        ],
+        "support": 0.51,
+        "confidence": 0.9550561797752809
+    },
+    {
+        "x": [
+            "time"
+        ],
+        "y": [
+            "undefined",
+            "with"
+        ],
+        "support": 0.514,
+        "confidence": 0.9518518518518518
+    },
+    {
+        "x": [
+            "undefined"
+        ],
+        "y": [
+            "with",
+            "time"
+        ],
+        "support": 0.514,
+        "confidence": 0.5962877030162413
+    },
+    {
+        "x": [
+            "with"
+        ],
+        "y": [
+            "time",
+            "undefined"
+        ],
+        "support": 0.514,
+        "confidence": 0.7907692307692308
+    },
+    {
+        "x": [
+            "time",
+            "undefined"
+        ],
+        "y": [
+            "with"
+        ],
+        "support": 0.514,
+        "confidence": 0.9625468164794008
+    },
+    {
+        "x": [
+            "time"
+        ],
+        "y": [
+            "undefined",
+            "function"
+        ],
+        "support": 0.508,
+        "confidence": 0.9407407407407408
+    },
+    {
+        "x": [
+            "undefined"
+        ],
+        "y": [
+            "function",
+            "time"
+        ],
+        "support": 0.508,
+        "confidence": 0.5893271461716937
+    },
+    {
+        "x": [
+            "function"
+        ],
+        "y": [
+            "time",
+            "undefined"
+        ],
+        "support": 0.508,
+        "confidence": 0.6091127098321343
+    },
+    {
+        "x": [
+            "time",
+            "undefined"
+        ],
+        "y": [
+            "function"
+        ],
+        "support": 0.508,
+        "confidence": 0.951310861423221
+    },
+    {
+        "x": [
+            "time"
+        ],
+        "y": [
+            "undefined",
+            "for"
+        ],
+        "support": 0.52,
+        "confidence": 0.9629629629629629
+    },
+    {
+        "x": [
+            "undefined"
+        ],
+        "y": [
+            "for",
+            "time"
+        ],
+        "support": 0.52,
+        "confidence": 0.6032482598607889
+    },
+    {
+        "x": [
+            "for"
+        ],
+        "y": [
+            "time",
+            "undefined"
+        ],
+        "support": 0.52,
+        "confidence": 0.7471264367816092
+    },
+    {
+        "x": [
+            "time",
+            "undefined"
+        ],
+        "y": [
+            "for"
+        ],
+        "support": 0.52,
+        "confidence": 0.9737827715355806
+    },
+    {
+        "x": [
+            "time"
+        ],
+        "y": [
+            "undefined",
+            "this"
+        ],
+        "support": 0.522,
+        "confidence": 0.9666666666666667
+    },
+    {
+        "x": [
+            "undefined"
+        ],
+        "y": [
+            "this",
+            "time"
+        ],
+        "support": 0.522,
+        "confidence": 0.605568445475638
+    },
+    {
+        "x": [
+            "this"
+        ],
+        "y": [
+            "time",
+            "undefined"
+        ],
+        "support": 0.522,
+        "confidence": 0.75
+    },
+    {
+        "x": [
+            "time",
+            "undefined"
+        ],
+        "y": [
+            "this"
+        ],
+        "support": 0.522,
+        "confidence": 0.9775280898876404
+    }
+]

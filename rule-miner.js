@@ -39,6 +39,8 @@ function create (args) {
         //third order list;
         this.l3 = [];
 
+        this.rules = [];
+
 
         this.process = function() {
 
@@ -48,23 +50,33 @@ function create (args) {
             //calculate the support count
             this.supportCount = (this.minSupport * this.count);
 
+
             //generate the initial set.
+            console.log('Generating First Order List: L1');
             this.buildL1();
+            fs.writeFileSync("./l1.json", JSON.stringify(this.l1, null, 4));
+            console.log('L1 Generated Succesfully');
 
             //build the first set of pairs.
+            console.log('Generating Second Order List: L2');
             this.buildL2();
-
             fs.writeFileSync("./l2.json", JSON.stringify(this.l2, null, 4));
+            console.log('L2 Generated Succesfully');
 
             //build the third order list.
+            console.log('Generating Third Order List: L3');
             this.buildL3();
-
             fs.writeFileSync("./l3.json", JSON.stringify(this.l3, null, 4));
+            console.log('L3 Generated Succesfully');
 
+            //build the raw rules object array.
+            console.log('Generatin rules.json Object');
             this.buildRules();
+            fs.writeFileSync("./rules.json", JSON.stringify(this.rules, null, 4));
+            console.log('Raw Rules.json Generated Succesfully');
 
 
-
+            this.emit('done', this.rules);
 
         }
 
@@ -218,7 +230,6 @@ function create (args) {
                 this.l3.push({terms: terms,
                                 docs: docs});
 
-                console.log(terms);
 
             }
 
@@ -233,8 +244,9 @@ function create (args) {
                 var terms = this.l3[i].terms;
 
                 //calculate the support value.
-                var support = this.l3[i].docs.length / this.count;
-                var confidence = [];
+                var support = this.l3[i].docs.length;
+                var confidence = 0;
+                var rule;
 
                 for(var j = 0; j< terms.length; j++) {
 
@@ -263,16 +275,35 @@ function create (args) {
 
                     //calculate the confidence values.
                     //passing the x terms
-                    confidence.push(this.getConfidence(support, x));
+
+                    confidence = this.getConfidence(support, x);
+                    if(!isNaN(confidence) && isFinite(confidence)
+                        && confidence > this.minConfidence) {
+                        //build a rule.
+                        rule = {"x":x,
+                                "y":y,
+                        'support': support/this.count,
+                        'confidence': confidence};
+
+                        this.rules.push(rule);
+
+                    }
 
                     //passing the y terms. has the same affect as reversing association
                     //test from x -> y, then y -> x with the the new value of x being the previous
                     //value of y.
-                    confidence.push(this.getConfidence(support, y));
+                    confidence = this.getConfidence(support, y);
+                    if(!isNaN(confidence) && isFinite(confidence)
+                        && confidence > this.minConfidence) {
+                        //build a rule.
+                        rule = {"x":y,
+                            "y":x,
+                            'support': support/this.count,
+                            'confidence': confidence};
 
+                        this.rules.push(rule);
 
-
-
+                    }
 
                 }
 
@@ -281,14 +312,51 @@ function create (args) {
         }
 
         this.getConfidence = function(support, x) {
-            console.log('support:' + support + " | x:" + x);
 
-            return 'test';
+            //the support values of x.
+            var xSupport = 0;
+
+            //check if x has a single term, if so use the first order list,
+            //if the length is 2, use the second order list.
+
+            switch(x.length) {
+                case 1:
+
+                    var term = x[0];
+                    //search the first order list.
+                    for(var i = 0; i < this.l1.length; i++) {
+                        if(this.l1[i].term == term) {
+
+                            xSupport = this.l1[i].support;
+
+                        }
+                    }
+
+
+                    break;
+                case 2:
+                    //search the second order list.
+
+                    for(var i = 0; i < this.l2.length; i++) {
+
+                        //check if the pair contains both the terms.
+                        if(this.l2[i].pair.indexOf(x[0]) >= 0 &&
+                            this.l2[i].pair.indexOf(x[1]) >= 0) {
+
+                            xSupport = this.l2[i].support;
+                        }
+
+                    }
+
+                    break;
+            }
+
+            //console.log("support: " + support + " | xSupport: " + xSupport);
+            //calculate the confidence and return
+            return support/xSupport;
+
         }
     }
-
-
-
 
     /*
      *inherit the event mitter in order to
